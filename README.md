@@ -10,7 +10,7 @@
 
 ## USAGE:
 
-  TODO
+  ruby lib/engine.rb
 
 ## LICENSE:
 

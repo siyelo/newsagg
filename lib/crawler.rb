@@ -6,18 +6,23 @@ module NewsAgg
       @medium = medium
     end
 
-    def items
-      feed_items.each do |item|
-        html_parser = NewsAgg::Parser::Html.new(item[:url], medium.selector)
-        item[:content] = html_parser.content
+    def process
+      feed_items.each do |feed_item|
+        item = Item.new(feed_item)
+
+        unless item.exists?
+          html_parser  = NewsAgg::Parser::Html.new(item.url, medium.selector)
+          item.content = html_parser.content
+
+          item.save
+        end
       end
     end
 
     private
       def feed_items
-        parser = NewsAgg::Parser::Rss.new(medium.url, medium.feeds)
-        # TODO: change to return all items
-        [parser.items[0]]
+        parser = NewsAgg::Parser::Rss.new(medium.key, medium.feeds)
+        parser.items
       end
   end
 end

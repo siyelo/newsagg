@@ -2,6 +2,10 @@ require "rubygems"
 require "bundler/setup"
 Bundler.require
 
+Dir["#{File.dirname(__FILE__)}/lib/core_ext/*.rb"].sort.each do |path|
+  require_relative "lib/core_ext/#{File.basename(path, '.rb')}"
+end
+
 
 # development environment
 ENV['RACK_ENV'] ||= 'development'
@@ -17,7 +21,7 @@ end
 # all environments
 configure do
   uri = URI.parse(ENV["REDISTOGO_URL"])
-  $r = Redis.new(:host => uri.host, :port => uri.port, :password => uri.password)
+  R = Redis.new(:host => uri.host, :port => uri.port, :password => uri.password)
 end
 
 $media = YAML::load_file(File.join(File.dirname(__FILE__), 'media.yml'))
