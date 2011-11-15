@@ -19,3 +19,5 @@ configure do
   uri = URI.parse(ENV["REDISTOGO_URL"])
   $r = Redis.new(:host => uri.host, :port => uri.port, :password => uri.password)
 end
+
+$media = YAML::load_file(File.join(File.dirname(__FILE__), 'media.yml'))
