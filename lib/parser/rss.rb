@@ -23,7 +23,7 @@ module NewsAgg
         # limit the items per medium to the number
         # of max items that can be displayed
         limit = CATEGORY_LIMIT * Category.all.length
-        items = items.sort{ |a, b| b['timestamp'] <=> a['timestamp'] }.first(5)
+        items = items.sort{ |a, b| b['timestamp'] <=> a['timestamp'] }.first(15)
       end
 
       private
