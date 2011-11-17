@@ -8,5 +8,9 @@ module NewsAgg
       @feeds    = params[:feeds]
       @selector = params[:selector]
     end
+
+    def self.all
+      @all ||= CONFIG[:media].map { |params| new(params) }
+    end
   end
 end

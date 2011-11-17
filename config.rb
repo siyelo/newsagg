@@ -2,6 +2,11 @@ require "rubygems"
 require "bundler/setup"
 Bundler.require
 
+require_relative 'helpers'
+require_relative 'lib/newsagg'
+require 'json'
+
+
 Dir["#{File.dirname(__FILE__)}/lib/core_ext/*.rb"].sort.each do |path|
   require_relative "lib/core_ext/#{File.basename(path, '.rb')}"
 end
@@ -24,4 +29,6 @@ configure do
   R = Redis.new(:host => uri.host, :port => uri.port, :password => uri.password)
 end
 
-$media = YAML::load_file(File.join(File.dirname(__FILE__), 'media.yml'))
+
+CONFIG = YAML::load_file(File.join(File.dirname(__FILE__), 'config.yml'))
+CATEGORY_LIMIT = 15

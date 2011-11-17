@@ -6,11 +6,23 @@
 
 ## INSTALLATION:
 
-  TODO
+  bundle install
+
+## SETUP:
+
+  - Configure categories and training sets (edit: "config.yml" file)
+  - Add RSS feeds (edit: "config.yml" file)
 
 ## USAGE:
 
-  ruby lib/engine.rb
+  - Create training sets
+    ruby script/train.rb
+
+  - Collect & classify articles from newspapers
+    ruby script/crawl.rb
+
+  - View classified articles (localhost:9292)
+    rackup config.ru
 
 ## LICENSE:
 

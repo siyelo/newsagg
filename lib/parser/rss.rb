@@ -19,19 +19,25 @@ module NewsAgg
           rss_items.each { |item| items << parse(item) }
         end
         items
+
+        # limit the items per medium to the number
+        # of max items that can be displayed
+        limit = CATEGORY_LIMIT * Category.all.length
+        items = items.sort{ |a, b| b['timestamp'] <=> a['timestamp'] }.first(5)
       end
 
       private
         def parse(item)
           object = {}
-          object[:medium_key]  = medium_key
-          object[:title]       = clean_whitespace(item.title)
-          object[:timestamp]   = item.date.to_i || item.pubDate.to_i
-          object[:description] = clean_whitespace(item.description)
-          object[:url]         = clean_whitespace(item.link)
+          object['medium_key']  = medium_key
+          object['title']       = clean_whitespace(item.title)
+          object['timestamp']   = item.date.to_i || item.pubDate.to_i
+          # TODO: clean description from HTML tags
+          # object['description'] = clean_whitespace(item.description)
+          object['url']         = clean_whitespace(item.link)
 
           # DEBUG: feed_url object
-          # p object[:url]
+          # p object['url']
 
           object
         end

@@ -1,0 +1,23 @@
+!!!
+%html(xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en")
+  %head
+    %meta{"http-equiv" => "content-type", :content => "text/html;charset=UTF-8"}
+    %title= "NewsAgg"
+    <meta name="keywords" content="news" />
+    <meta name="description" content="News aggregator" />
+    <meta name="author" content="Dalibor Nasevic" />
+    <link href='/style.css' media='screen' rel='stylesheet' type='text/css' />
+    <script src='//ajax.googleapis.com/ajax/libs/jquery/1.6.3/jquery.min.js' type='text/javascript'></script>
+  %body
+    #container
+      %header
+        %h1= link_to 'NewsAgg', '/'
+
+      .content
+        .menu
+          %ul
+            - @categories.each do |category|
+              %li{:class => (params[:c] == category ? 'active' : nil)}= link_to category.capitalize, "/?c=#{category}"
+        .news
+          = yield
+

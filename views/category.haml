@@ -1,0 +1,7 @@
+- if @items.empty?
+  No news is good news.
+- else
+  %ul
+    - @items.each do |item|
+      %li
+        = link_to item.title, item.url, :title => score_percentages(item.scores)
