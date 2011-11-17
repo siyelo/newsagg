@@ -2,7 +2,7 @@
 
 ## DESCRIPTION:
 
-  News Aggregator that classifies and clusterifies news from different sources
+  News Aggregator that classifies news from different sources
 
 ## INSTALLATION:
 
@@ -10,18 +10,22 @@
 
 ## SETUP:
 
-  - Configure categories and training sets (edit: "config.yml" file)
-  - Add RSS feeds (edit: "config.yml" file)
+### Configure categories, training sets and RSS feeds
+
+    (edit: "config.yml" file)
 
 ## USAGE:
 
-  - Create training sets
+### Create training sets
+
     ruby script/train.rb
 
-  - Collect & classify articles from newspapers
+### Collect & classify articles from newspapers
+
     ruby script/crawl.rb
 
-  - View classified articles (localhost:9292)
+### View classified articles (localhost:9292)
+
     rackup config.ru
 
 ## LICENSE:
