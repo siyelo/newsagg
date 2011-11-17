@@ -4,4 +4,8 @@
   %ul
     - @items.each do |item|
       %li
-        = link_to item.title, item.url, :title => score_percentages(item.scores)
+        %h2
+          = link_to item.title, item.url
+          %span{:title => score_percentages(item.scores)} (?)
+
+        %p= item.content.truncate(300)

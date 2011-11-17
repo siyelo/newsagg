@@ -45,6 +45,22 @@ table
   border-collapse: collapse
   border-spacing: 0
 
+body
+  color: #333
+  font-family: "Helvetica Neue",Helvetica,Arial,sans-serif
+
+a, a:active, a:visited
+  color: #607890
+  text-decoration: none
+
+a:hover
+  color: #003366
+  text-decoration: underline
+
+p
+  line-height: 18px
+  margin-bottom: 10px
+
 
 
 .content
@@ -52,10 +68,10 @@ table
   margin: 0 auto
 
 header
-  margin-bottom: 50px
+  margin-bottom: 30px
   h1
     font-size: 30px
-    margin-top: 10px
+    margin-top: 20px
 
 
 ul
@@ -78,8 +94,39 @@ ul
         padding: 0 6px
 
         &.active
-          border-left: 5px solid #000
+          border-left: 5px solid #000 !important
+
+      li:nth-child(1)
+        border-left: 5px solid #F3BD18
+      li:nth-child(2)
+        border-left: 5px solid #DE6E26
+      li:nth-child(3)
+        border-left: 5px solid #A71D3F
+      li:nth-child(4)
+        border-left: 5px solid #70629A
+      li:nth-child(5)
+        border-left: 5px solid #0988C5
+      li:nth-child(6)
+        border-left: 5px solid #3A9F47
+      li:nth-child(7)
+        border-left: 5px solid #FF0099
+      li:nth-child(8)
+        border-left: 5px solid #412A1A
+      li:nth-child(9)
+        border-left: 5px solid #C5B8BF
+
 
   .news
     width: 760px
     float: left
+
+    ul
+      li
+        h2
+          margin-bottom: 10px
+          span
+            color: #666
+            font-size: 12px
+        p
+          margin-bottom: 20px
+          font-size: 13px

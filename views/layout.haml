@@ -17,7 +17,7 @@
         .menu
           %ul
             - @categories.each do |category|
-              %li{:class => (params[:c] == category ? 'active' : nil)}= link_to category.capitalize, "/?c=#{category}"
+              %li{:class => (category == @category ? 'active' : nil)}= link_to category.name.capitalize, "/?c=#{category.name}"
         .news
           = yield
 

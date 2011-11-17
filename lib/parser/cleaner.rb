@@ -4,9 +4,8 @@ module NewsAgg
 
       private
         def clean_whitespace(text)
-          text.gsub(/\s{2,}|\t|\n/, ' ').strip
+          text.gsub('&nbsp;', '').gsub(/\s{2,}|\t|\n/, ' ').strip
         end
-
     end
   end
 end

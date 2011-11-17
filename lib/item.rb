@@ -1,7 +1,7 @@
 module NewsAgg
   class Item
     attr_accessor :medium_key, :title, :timestamp,
-      :url, :content, :scores#, :description
+      :url, :content, :scores, :category
 
     def initialize(params)
       @medium_key  = params['medium_key']
@@ -10,7 +10,8 @@ module NewsAgg
       @url         = params['url']
       # @description = params['description']
       @content     = params['content']
-      @scores      = params['scores']
+
+      load_associations
     end
 
     def save
@@ -45,33 +46,24 @@ module NewsAgg
       "item:#{medium_key}:#{timestamp}"
     end
 
+    def add_scores(scores)
+      # redis: string
+      R.set("scores:#{key}", scores.to_json)
+    end
+
+    def destroy
+      R.multi do
+        category.remove_item(self)
+        remove_scores
+        delete_item
+      end
+    end
 
     def self.find(key)
       if key.is_a?(Array)
         key.map { |k| Item.find(k) }
       else
-        scores = R.get("score:#{key}")
-        scores = JSON.parse(scores)
-        new(R.hgetall(key).merge('scores' => scores))
-      end
-    end
-
-    # Redis on Heroku is free up to 5 mb
-    # we need to regularly clean "old" items
-    # allow max to 50 items per category
-    def self.clean_old_items!
-      # TODO: clean old items in database
-      # leave only 10 items per category
-      NewsAgg::Category.all.each do |category|
-        # DEBUG
-        # deleted = R.zremrangebyrank("category:#{category.name}", 0, -11)
-        # p "cleaning... category => #{category.name}, deleted => #{deleted}"
-        p "cleaning... category => #{category.name}"
-        R.zrevrange("category:#{category.name}", CATEGORY_LIMIT, -1).each do |key|
-          R.del("score:#{key}")
-          R.zrem("category:#{category.name}", key)
-          R.del(key)
-        end
+        new(R.hgetall(key))
       end
     end
 
@@ -88,6 +80,33 @@ module NewsAgg
         R.hmset(k, 'url', url)
         # R.hmset(k, 'description', description)
         R.hmset(k, 'content', content)
+      end
+
+      def delete_item
+        R.del(key)
+      end
+
+      def remove_scores
+        R.del("scores:#{key}")
+      end
+
+      def load_associations
+        @scores   = load_scores
+        @category = load_category
+      end
+
+      def load_scores
+        scores = R.get("scores:#{key}")
+        if scores
+          JSON.parse(scores)
+        else
+          []
+        end
+      end
+
+      def load_category
+        category_name, score = scores.max_by{ |k,v| v }
+        Category.find(category_name)
       end
   end
 end

@@ -17,7 +17,7 @@ module NewsAgg
         end
       end
 
-      Item.clean_old_items!
+      Category.clean_old_items!
 
       # DEBUG
       # item = Item.find("item:timeslive.co.za:1321459262")

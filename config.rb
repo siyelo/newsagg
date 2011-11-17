@@ -31,4 +31,3 @@ end
 
 
 CONFIG = YAML::load_file(File.join(File.dirname(__FILE__), 'config.yml'))
-CATEGORY_LIMIT = 15

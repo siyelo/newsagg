@@ -28,4 +28,9 @@ class String
       self !~ NON_WHITESPACE_REGEXP
     end
   end
+
+  def truncate(length=300)
+    text = self.dup
+    text[0...length] + '...'
+  end
 end

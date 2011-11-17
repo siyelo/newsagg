@@ -4,6 +4,8 @@ require 'rss/2.0'
 module NewsAgg
   module Parser
     class Rss
+      FEED_LIMIT = 15 # max number of items per medium
+
       include Cleaner
       attr_accessor :medium_key, :feed_urls
 
@@ -22,8 +24,7 @@ module NewsAgg
 
         # limit the items per medium to the number
         # of max items that can be displayed
-        limit = CATEGORY_LIMIT * Category.all.length
-        items = items.sort{ |a, b| b['timestamp'] <=> a['timestamp'] }.first(15)
+        items = items.sort{ |a, b| b['timestamp'] <=> a['timestamp'] }.first(FEED_LIMIT)
       end
 
       private

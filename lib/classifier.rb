@@ -10,14 +10,16 @@ module NewsAgg
     # TODO: classify item
     def self.classify(item)
       classifier = Statistic.new(training_data)
-      scores = classifier.scores(item.content)
 
-      category, score = scores.max_by{ |k,v| v }
-      R.zadd("category:#{category}", item.timestamp, item.key) # sorted set
-      R.set("score:#{item.key}", scores.to_json) # hash
+      scores = classifier.scores(item.content)
+      category_name, score = scores.max_by{ |k,v| v }
+
+      category = Category.find(category_name)
+      category.add_item(item, score)
+      item.add_scores(scores)
 
       # DEBUG: classified object
-      p "classifying... medium => #{item.medium_key}, key => #{item.key}, title => #{item.title}, :category => #{category}"
+      p "classifying... medium => #{item.medium_key}, key => #{item.key}, title => #{item.title}, :category => #{category.name}"
     end
 
     private
