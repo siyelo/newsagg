@@ -2,7 +2,7 @@
 
 ## DESCRIPTION:
 
-  News Aggregator that classifies news from different sources
+  News Aggregator that classifies and clusterifies news from different sources
 
 ## INSTALLATION:
 
@@ -24,7 +24,7 @@
 
     ruby script/crawl.rb
 
-### View classified articles (localhost:9292)
+### Read news (localhost:9292)
 
     rackup config.ru
 

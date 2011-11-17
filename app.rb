@@ -3,8 +3,6 @@ require './config'
 include NewsAgg
 
 get '/' do
-  params[:c] ||= 'world' # temp until cluster is implemented
-
   @categories = Category.all
   @category   = Category.find(params[:c])
 
@@ -12,6 +10,7 @@ get '/' do
     @items = @category.recent_items
     haml :category, :layout => :layout
   else
+    @clusters = Clusters.load
     haml :cluster, :layout => :layout
   end
 end

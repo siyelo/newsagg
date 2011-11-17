@@ -18,10 +18,6 @@ module NewsAgg
       end
 
       Category.clean_old_items!
-
-      # DEBUG
-      # item = Item.find("item:timeslive.co.za:1321459262")
-      # Classifier.classify(item)
     end
 
     def self.start
@@ -29,6 +25,8 @@ module NewsAgg
         crawler = Crawler.new(medium)
         crawler.process
       end
+
+      Clusters.create!
     end
 
     private

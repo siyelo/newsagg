@@ -5,11 +5,11 @@ require 'json'
 
 module NewsAgg
   module Classifier
-    autoload :Statistic, 'statistic'
+    autoload :StatsClassifier, 'stats_classifier'
 
     # TODO: classify item
     def self.classify(item)
-      classifier = Statistic.new(training_data)
+      classifier = StatsClassifier.new(training_data)
 
       scores = classifier.scores(item.content)
       category_name, score = scores.max_by{ |k,v| v }

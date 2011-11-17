@@ -6,6 +6,6 @@
       %li
         %h2
           = link_to item.title, item.url
-          %span{:title => score_percentages(item.scores)} (?)
+          %span{:title => score_percentages(item.scores)}= "(#{item.medium_key})"
 
         %p= item.content.truncate(300)

@@ -1,11 +1,11 @@
 module NewsAgg
   module Classifier
-    class Statistic
+    class StatsClassifier
       attr_accessor :training_sets
 
       def initialize(data)
         @training_sets = {}
-        filename = File.join(File.dirname(__FILE__), 'data', 'stop_words.txt')
+        filename = File.join(File.dirname(__FILE__), '..', 'data', 'stop_words.txt')
         @noise_words = File.new(filename).readlines.map(&:chomp)
 
         train(data)

@@ -56,6 +56,7 @@ module NewsAgg
         category.remove_item(self)
         remove_scores
         delete_item
+        # TODO: remove item from clusters
       end
     end
 

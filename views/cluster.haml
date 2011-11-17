@@ -1,1 +1,16 @@
-TODO
+- if @clusters.empty?
+  Sorry, we don't have any clusters yet. See news categories.
+- else
+  %ul
+    - @clusters.each do |cluster|
+      - item = cluster[0]
+      %li
+        %h2
+          = link_to "#{item.title}", item.url
+          %span{:title => score_percentages(item.scores)}= "(#{item.medium_key})"
+        - cluster[1..-1].each do |item|
+          %h3
+            = link_to item.title, item.url
+            %span{:title => score_percentages(item.scores)}= "(#{item.medium_key})"
+
+        %p= item.content.truncate(300)
